@@ -1,4 +1,4 @@
-import { makeObservable, observable, action } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 
 export interface User {
   email: string;
@@ -36,40 +36,3 @@ export function userStore() {
     }
   );
 }
-
-// import { makeAutoObservable } from "mobx";
-
-// export interface User {
-//   email: string;
-//   password: string;
-//   isLogged: boolean;
-// }
-
-// export class UserStore {
-//   userData = {
-//     email: "",
-//     password: "",
-//     isLogged: false,
-//   };
-
-//   constructor() {
-//     makeAutoObservable(this);
-//   }
-
-//   signin = (user: User): void => {
-//     this.userData = {
-//       email: user.email,
-//       password: user.password,
-//       isLogged: true,
-//     };
-//     console.log(this.userData);
-//   };
-
-//   signout = (user: User): void => {
-//     this.userData = {
-//       email: "",
-//       password: "",
-//       isLogged: false,
-//     };
-//   };
-// }

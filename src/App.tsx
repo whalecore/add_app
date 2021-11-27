@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
 import { observer } from "mobx-react";
 import {
   BrowserRouter as Router,
@@ -6,25 +6,44 @@ import {
   Switch,
   Redirect,
 } from "react-router-dom";
-import { runInAction } from "mobx";
 
-import Add from "./components/add/Add";
+import OperationPage from "./pages/operation-page/operation-page";
 import EntryPoint from "./components/entry-point/EntryPoint";
 import Header from "./components/header/Header";
 import SignIn from "./components/sign-in/Sign-in";
 
-import { userStore } from "./store/userStore";
+import { User, userStore } from "./store/userStore";
 
-const store = userStore();
+import resultsStore from "./store/resultsStore";
+
+export const resStore = resultsStore();
+
+export const store = userStore();
 
 const App = observer((): JSX.Element => {
+  const handleSubmit = (user: User) => {
+    store.signin(user);
+  };
+
+  const handleSignOut = (user: User) => {
+    store.signout(user);
+  };
+
   return (
     <Router>
-      <Header />
+      <Header logOut={handleSignOut} currentUser={store.userData} />
       <Switch>
         <Route exact path="/" component={EntryPoint} />
-        <Route path="/signin" component={SignIn} />
-        <Route path="/add" component={Add} />
+        <Route path="/signin">
+          {store.userData.isLogged ? (
+            <Redirect to="/add" />
+          ) : (
+            <SignIn onSubmit={handleSubmit} />
+          )}
+        </Route>
+        <Route path="/add">
+          {store.userData.isLogged ? <OperationPage /> : <Redirect to="/" />}
+        </Route>
       </Switch>
     </Router>
   );
