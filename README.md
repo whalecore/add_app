@@ -1,5 +1,3 @@
-
-
 ### TODO
 
 ---
@@ -13,3 +11,4 @@
 7. Show no properies inside forms if null is in state values
 8. If result or any other property is greater than 10 - they should have green coloring
 9. Hide left size of the operation page if screen is lesser than 790 px
+10. Fix vulnerabilities on dependencies
