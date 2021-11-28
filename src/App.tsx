@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useState } from "react";
+import React from "react";
 import { observer } from "mobx-react";
 import {
   BrowserRouter as Router,

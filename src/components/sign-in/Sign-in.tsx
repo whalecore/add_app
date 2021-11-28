@@ -33,7 +33,7 @@ const SignIn = observer((props: SignInProps): JSX.Element => {
               setCurrentUser((prevState) => {
                 return {
                   ...prevState,
-                  [name]: e.target.value,
+                  [name]: value,
                 };
               });
             }}
