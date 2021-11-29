@@ -1,32 +1,54 @@
+// Навигационная панель для приложения
 import React from "react";
-import { Navbar, Container, Nav } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
+import { Link } from "react-router-dom";
 
-import { userStore } from "../../store/user";
+import { Navbar, Container, Nav } from "react-bootstrap";
+import { User } from "../../store/userStore";
+
+import { maskEmail } from "../../utils/mask-email";
 
 interface HeaderProps {
-  currentUser: boolean;
+  currentUser: User;
+  logOut: Function;
 }
 
 const Header = observer((props: HeaderProps): JSX.Element => {
   return (
-    <Navbar bg="secondary" variant="dark">
-      <Container fluid>
-        <Navbar.Brand href="/" style={{ marginLeft: "20px" }}>
-          Сложение
+    <Container fluid>
+      <Navbar bg="light" expand="md">
+        <Navbar.Brand style={{ marginLeft: "10px" }} as={Link} to="/">
+          Операция "Сложение"
         </Navbar.Brand>
-        <Nav className="justify-content-end">
-          <Nav.Link href="/add">Сложить</Nav.Link>
-          {props.currentUser ? (
-            <Nav.Link href="/" onClick={() => userStore.logout}>
-              Выйти
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto">
+            <Nav.Link as={Link} to="/add">
+              Сложить
             </Nav.Link>
-          ) : (
-            <Nav.Link href="/login">Войти</Nav.Link>
-          )}
-        </Nav>
-      </Container>
-    </Navbar>
+            {/* Если свойство isLogged во внешнем состоянии равно истине, то возвращаем кнопку "выйти из аккаунта" и его логин,
+                в ином случае отображаем кнопку "войти" */}
+            {props.currentUser.isLogged ? (
+              <Nav.Link
+                as={Link}
+                to="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  props.logOut(props.currentUser);
+                }}
+              >
+                Выйти из аккаунта{" "}
+                <Navbar.Text>{maskEmail(props.currentUser.email)}</Navbar.Text>
+              </Nav.Link>
+            ) : (
+              <Nav.Link as={Link} to="/signin">
+                Войти
+              </Nav.Link>
+            )}
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    </Container>
   );
 });
 
