@@ -87,7 +87,7 @@ const OperationPage = observer((): JSX.Element => {
         <LoadingModal onShow={true} keyboardStatus={false} />
       ) : null}
       <Row className="d-xs-block vh-100">
-        <Col className="border-1 border rounded-3 text-center" md="6">
+        <Col className="border-1 border rounded-3 text-center d-sm-none d-md-block" md="6">
           <AddInfo currentUser={store.userData.email} />
         </Col>
         <Col className="border-1 border rounded-3 text-center" md="6">
