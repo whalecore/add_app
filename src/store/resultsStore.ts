@@ -1,5 +1,9 @@
 import { action, makeObservable, observable } from "mobx";
 
+// Хранилище состояний для результатов вычислений
+// Два наблюдаемых массива - numbers и customFilterNumbers
+// В первый кладем числа введенные пользователем, во второй - отсортированный список по пользовательской маске
+
 export default function resultsStore() {
   return makeObservable(
     {
@@ -15,16 +19,19 @@ export default function resultsStore() {
         }, 0);
       },
       copyArrayToCustom() {
-        return this.customFilterNumbers = this.numbers;
+        return (this.customFilterNumbers = this.numbers);
       },
       clearNumbersArray() {
         return (this.numbers = []);
       },
-      greaterThan(num: number) {
-        return this.customFilterNumbers.filter((a) => a > num);
-      },
       lesserThan(num: number) {
-        return this.customFilterNumbers.filter((a) => a < num);
+        return (this.customFilterNumbers = this.numbers.filter((a) => a > num));
+      },
+      greaterThan(num: number) {
+        return (this.customFilterNumbers = this.numbers.filter((a) => a < num));
+      },
+      clearFilteredArray() {
+        return (this.customFilterNumbers = []);
       },
       sortNumbersAsc() {
         return this.numbers.sort((a, b) => {
@@ -46,6 +53,9 @@ export default function resultsStore() {
       sortNumbersAsc: action.bound,
       sortNumbersDesc: action.bound,
       clearNumbersArray: action.bound,
+      greaterThan: action.bound,
+      lesserThan: action.bound,
+      clearFilteredArray: action.bound,
     }
   );
 }

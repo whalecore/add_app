@@ -1,3 +1,5 @@
+// Заглушка для имитации проведения вычислений и запрета пользователю использования других кнопок
+
 import React, { useEffect, useState } from "react";
 
 import { Modal, ProgressBar } from "react-bootstrap";
@@ -11,6 +13,8 @@ const LoadingModal = (props: LoadingModalProps): JSX.Element => {
   const [show, setShow] = useState(props.onShow);
   const [prgBar, setPrgBar] = useState(0);
 
+  // В течение 5.6 секунд отображаем данный экран, а также каждую секунду увеличиваем
+  // ProgressBar на 20%, после чего очищаем и таймаут и интервал
   useEffect(() => {
     const timer = setInterval(() => {
       setPrgBar((prevState) => {

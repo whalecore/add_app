@@ -1,9 +1,12 @@
+// Навигационная панель для приложения
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 
 import { Navbar, Container, Nav } from "react-bootstrap";
 import { User } from "../../store/userStore";
+
+import { maskEmail } from "../../utils/mask-email";
 
 interface HeaderProps {
   currentUser: User;
@@ -23,6 +26,8 @@ const Header = observer((props: HeaderProps): JSX.Element => {
             <Nav.Link as={Link} to="/add">
               Сложить
             </Nav.Link>
+            {/* Если свойство isLogged во внешнем состоянии равно истине, то возвращаем кнопку "выйти из аккаунта" и его логин,
+                в ином случае отображаем кнопку "войти" */}
             {props.currentUser.isLogged ? (
               <Nav.Link
                 as={Link}
@@ -32,20 +37,17 @@ const Header = observer((props: HeaderProps): JSX.Element => {
                   props.logOut(props.currentUser);
                 }}
               >
-                Выйти из аккаунта <Navbar.Text>{props.currentUser.email}</Navbar.Text>
+                Выйти из аккаунта{" "}
+                <Navbar.Text>{maskEmail(props.currentUser.email)}</Navbar.Text>
               </Nav.Link>
             ) : (
               <Nav.Link as={Link} to="/signin">
                 Войти
               </Nav.Link>
             )}
-            {/* <Nav.Link as={Link} to="/signin">
-              Войти
-            </Nav.Link> */}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-      {/* {store.users ? "User is logged in!" : "Not logged"} */}
     </Container>
   );
 });

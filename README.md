@@ -1,14 +1,63 @@
-### TODO
-
+# Приложение для сложения чисел
 ---
+### Установка
+```bash
+git clone https://github.com/whalecore/add_app.git
+npm i
+```
+или 
 
-1. Auth validator (done)
-2. Change first card view
-3. Refactor cards into one component to further use and customizing it via props
-4. Fix layout
-5. Hide domain on email address (done)
-6. Clear forms on repeat
-7. Show no properies inside forms if null is in state values
-8. If result or any other property is greater than 10 - they should have green coloring
-9. Hide left size of the operation page if screen is lesser than 790 px (done)
-10. Fix vulnerabilities on dependencies
+```bash
+git clone https://github.com/whalecore/add_app.git
+yarn
+```
+После установки всех зависимостей для приложения запустить сервер можно при помощи комант `npm start` или `yarn start`.
+
+### Сборка
+
+```bash
+yarn build
+```
+```bash
+npm build
+```
+
+### Структура проекта
+
+Все компоненты, за исключением `OperationPage` (доступна в `pages/operation-page/`), находятся в папке `components`. Структура файлов и папок указана ниже:
+```
+add_app/
+|-- tsconfig.json
+|-- package.json
+|-- yarn.lock
+|-- README.md
+|-- src/
+    |-- App.tsx
+    |-- index.tsx
+    |-- react-app-env.d.ts
+    |-- components/
+        |-- calc-card/
+            |-- CalcCard.tsx
+        |-- entry-point/
+            |-- EntryPoint.tsx
+        |-- header/
+            |-- Header.tsx
+        |-- info-card/
+            |-- AddInfo.tsx
+        |-- loadingModal/
+            |-- LoadingModal.tsx
+        |-- results-card/
+            |-- ResultsCard.tsx
+        |-- sign-in/
+            |-- SignIn.tsx
+        |-- steps-card/
+            |-- StepsCard.tsx
+    |-- pages/
+        |-- operation-page/
+            |-- operation-page.tsx
+    |-- store/
+        |-- resultsStore.ts
+        |-- userStore.ts
+    |-- utils/
+        |-- mask-email.ts
+```

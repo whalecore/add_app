@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+// Компонент для проведения расчетов
+
+import React, { useState, useEffect } from "react";
 import { observer } from "mobx-react";
 
 import {
@@ -12,52 +14,69 @@ import {
 
 import { resStore } from "../../App";
 
-const CalcCard = observer(() => {
+// Интерфейс для получения пропсов из компонента OperationPage
+interface CalcCardProps {
+  clearAll: boolean;
+  clearOff: Function;
+}
+
+const CalcCard = observer((props: CalcCardProps) => {
+  // состояния для введения чисел
+  // по хорошему стоило сделать список, в который добавлялось бы по числу,
+  // однако я решил отложить это до момента, когда все карточки я отрефакторю
+  // в один компонент
   const [num, setNum] = useState(0);
   const [numTwo, setNumTwo] = useState(0);
   const [additionalNum, setAdditionalNum] = useState(0);
+  // состояние для закрытия форм после введения данных
   const [lockForm, setLockForm] = useState(false);
 
+  // Если из родительского компонента пропсом было передано значение true в clearAll
+  // то очищаем формы и разлочиваем их. После срабатывания хука возвращаем значение 
+  // в исходное положение
+  useEffect(() => {
+    if (props.clearAll) {
+      setNum(0);
+      setNumTwo(0);
+      setAdditionalNum(0);
+      setLockForm(false);
+    }
+    return () => {
+      props.clearOff(false);
+    };
+    // eslint-disable-next-line
+  }, [props.clearAll]);
+
+  const form = (formNumber: number, numFunc: Function) => {
+    if (lockForm && !props.clearAll) {
+      return <FormControl value={formNumber} disabled />;
+    } else {
+      return (
+        <FormControl
+          value={formNumber}
+          name="addNumOne"
+          onChange={(e) => {
+            const val = parseInt(e.target.value);
+
+            numFunc(Number.isNaN(val) ? 0 : val);
+          }}
+        />
+      );
+    }
+  };
+
   return (
-    <Card className="mt-4 ms-3" style={{ width: "300px" }}>
+    <Card className="w-100">
       <Card.Body>
         <Card.Title>Введите числа по одному в поле ниже</Card.Title>
         <Card.Body>
-          <Card.Text>
-            Добавленные вами числа: <br />
-            {resStore.numbers.join(" + ")}
-          </Card.Text>
           <InputGroup size="sm" className="mt-1">
-            {lockForm ? (
-              <FormControl disabled />
-            ) : (
-              <FormControl
-                value={num}
-                name="addNumOne"
-                onChange={(e) => {
-                  const val = parseInt(e.target.value);
-
-                  setNum(Number.isNaN(val) ? 0 : val);
-                }}
-              />
-            )}{" "}
+            {form(num, setNum)}
             <span className="me-1 ms-1">+</span>
-            {lockForm ? (
-              <FormControl disabled />
-            ) : (
-              <FormControl
-                value={numTwo}
-                name="addNumTwo"
-                onChange={(e) => {
-                  const val = parseInt(e.target.value);
-
-                  setNumTwo(Number.isNaN(val) ? 0 : val);
-                }}
-              />
-            )}
+            {form(numTwo, setNumTwo)}
           </InputGroup>
 
-          {lockForm ? (
+          {lockForm && props.clearAll ? (
             <Button
               size="sm"
               className="mt-2"
@@ -129,6 +148,7 @@ const CalcCard = observer(() => {
               className="mt-2"
               disabled
             >
+              {/* Компонент не работает без детей внутри */}
               {null}
             </DropdownButton>
           )}
