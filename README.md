@@ -31,33 +31,33 @@ add_app/
 |-- package.json
 |-- yarn.lock
 |-- README.md
-|-- src/
+|__ src/
     |-- App.tsx
     |-- index.tsx
     |-- react-app-env.d.ts
-    |-- components/
-        |-- calc-card/
+    |__ components/
+        |__ calc-card/
             |-- CalcCard.tsx
-        |-- entry-point/
+        |__ entry-point/
             |-- EntryPoint.tsx
-        |-- header/
+        |__ header/
             |-- Header.tsx
-        |-- info-card/
+        |__ info-card/
             |-- AddInfo.tsx
-        |-- loadingModal/
+        |__ loadingModal/
             |-- LoadingModal.tsx
-        |-- results-card/
+        |__ results-card/
             |-- ResultsCard.tsx
-        |-- sign-in/
+        |__ sign-in/
             |-- SignIn.tsx
-        |-- steps-card/
+        |__ steps-card/
             |-- StepsCard.tsx
-    |-- pages/
-        |-- operation-page/
+    |__ pages/
+        |__ operation-page/
             |-- operation-page.tsx
-    |-- store/
+    |__ store/
         |-- resultsStore.ts
         |-- userStore.ts
-    |-- utils/
+    |__ utils/
         |-- mask-email.ts
 ```
