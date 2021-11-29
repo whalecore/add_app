@@ -2,7 +2,7 @@
 
 ---
 
-1. Auth validator
+1. Auth validator (done)
 2. Change first card view
 3. Refactor cards into one component to further use and customizing it via props
 4. Fix layout

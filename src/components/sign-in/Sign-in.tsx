@@ -15,6 +15,28 @@ const SignIn = observer((props: SignInProps): JSX.Element => {
     password: "",
     isLogged: false,
   });
+  const [emailError, setEmailError] = useState("");
+
+  const emailHandler = (e: any) => {
+    const { name, value } = e.target;
+
+    const regexp = new RegExp(
+      // eslint-disable-next-line
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    );
+
+    if (!regexp.test(String(value).toLowerCase())) {
+      setEmailError("Некорректный email");
+    } else {
+      setEmailError("")
+      setCurrentUser((prevState) => {
+        return {
+          ...prevState,
+          [name]: value,
+        };
+      });
+    }
+  };
 
   return (
     <div className="d-md-flex justify-content-evenly">
@@ -28,18 +50,13 @@ const SignIn = observer((props: SignInProps): JSX.Element => {
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Ваш Email</Form.Label>
           <Form.Control
-            onChange={(e) => {
-              const { name, value } = e.target;
-              setCurrentUser((prevState) => {
-                return {
-                  ...prevState,
-                  [name]: value,
-                };
-              });
-            }}
+            onChange={emailHandler}
             name="email"
             placeholder="Адрес Email"
           />
+          {emailError ? (
+            <Form.Text style={{ color: "red" }}>{emailError}</Form.Text>
+          ) : null}
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -59,7 +76,9 @@ const SignIn = observer((props: SignInProps): JSX.Element => {
             placeholder="Пароль"
           />
         </Form.Group>
-        {currentUser.email && currentUser.password ? (
+        {currentUser.email.length > 3 &&
+        currentUser.password &&
+        emailError === "" ? (
           <Button variant="success" type="submit">
             Вход
           </Button>
