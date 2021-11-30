@@ -53,6 +53,8 @@ add_app/
         |__ steps-card/
             |-- StepsCard.tsx
     |__ pages/
+        |__ homepage/
+            |-- HomePage.tsx
         |__ operation-page/
             |-- operation-page.tsx
     |__ store/
