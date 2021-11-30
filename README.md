@@ -57,6 +57,10 @@ add_app/
             |-- HomePage.tsx
         |__ operation-page/
             |-- operation-page.tsx
+    |__ public/
+        |-- favicon.ico
+        |-- index.html
+        |-- robots.txt
     |__ store/
         |-- resultsStore.ts
         |-- userStore.ts
