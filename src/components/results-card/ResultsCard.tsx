@@ -12,6 +12,7 @@ const ResultsCard = observer((): JSX.Element => {
 
   return (
     <Card className="w-100">
+
       <Card.Title className="mt-2">Результат вычисления</Card.Title>
       <Card.Body>
         <Table width="100px" className="float-start" striped bordered hover>
@@ -25,7 +26,11 @@ const ResultsCard = observer((): JSX.Element => {
             {resStore.numbers.map((number) => {
               return (
                 <tr key={number}>
-                  {number > 10 ? <td style={{ color: "green" }}>{number}</td> : <td>{number}</td>}
+                  {number > 10 ? (
+                    <td style={{ color: "green" }}>{number}</td>
+                  ) : (
+                    <td>{number}</td>
+                  )}
                 </tr>
               );
             })}
@@ -39,7 +44,13 @@ const ResultsCard = observer((): JSX.Element => {
           </thead>
           <tbody>
             {/* Если в строчке число больше 10, то оно будет выделено зеленым цветом */}
-            <tr>{sum > 10 ? <td style={{ color: "green" }}>{sum}</td> : <td>{sum}</td>}</tr>
+            <tr>
+              {sum > 10 ? (
+                <td style={{ color: "green" }}>{sum}</td>
+              ) : (
+                <td>{sum}</td>
+              )}
+            </tr>
           </tbody>
         </Table>
       </Card.Body>

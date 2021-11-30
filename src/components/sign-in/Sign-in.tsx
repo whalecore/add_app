@@ -1,13 +1,14 @@
 // Компонент для входа в аккаунт. Т.к. не реализована регистрация, то войти можно при любом пароле
 
 import React, { useState } from "react";
+import { Helmet } from "react-helmet";
 import { observer } from "mobx-react-lite";
 
 import { Form, Button } from "react-bootstrap";
 
 import { User } from "../../store/userStore";
 
-// Определеяем интерфейс для передачи пропсов в функцию 
+// Определеяем интерфейс для передачи пропсов в функцию
 interface SignInProps {
   onSubmit: Function;
 }
@@ -29,13 +30,13 @@ const SignIn = observer((props: SignInProps): JSX.Element => {
       // eslint-disable-next-line
       /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
-    // Если введенный email не совпадает с вышеописанной маской, то в состояние помещаем текст ошибки, который 
+    // Если введенный email не совпадает с вышеописанной маской, то в состояние помещаем текст ошибки, который
     // выведем внутри компонента
     if (!regexp.test(String(value).toLowerCase())) {
       setEmailError("Некорректный email");
     } else {
       // В ином случае очистим текст ошибки и проставим данные в поля состояния
-      setEmailError("")
+      setEmailError("");
       setCurrentUser((prevState) => {
         return {
           ...prevState,
@@ -47,6 +48,9 @@ const SignIn = observer((props: SignInProps): JSX.Element => {
 
   return (
     <div className="d-md-flex justify-content-evenly">
+      <Helmet>
+        <title>Вход</title>
+      </Helmet>
       <Form
         onSubmit={(e) => {
           e.preventDefault();

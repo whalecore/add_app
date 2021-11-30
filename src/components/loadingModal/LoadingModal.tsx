@@ -41,6 +41,7 @@ const LoadingModal = (props: LoadingModalProps): JSX.Element => {
       className="text-center"
       centered
     >
+
       <Modal.Title className="mt-2">Производится расчет...</Modal.Title>
       <Modal.Body>Пожалуйста, дождитесь окончания расчета.</Modal.Body>
       <ProgressBar

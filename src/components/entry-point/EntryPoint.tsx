@@ -5,9 +5,11 @@ import { Link } from "react-router-dom";
 
 import { Button, Container } from "react-bootstrap";
 
-import { store } from "../../App";
+interface EntryPointProps {
+  loggedIn: boolean;
+}
 
-const EntryPoint = observer((): JSX.Element => {
+const EntryPoint = observer((props: EntryPointProps): JSX.Element => {
   return (
     <Container className="py-5 mt-3 border text-dark rounded-3">
       <h1>Операция "Сложение"</h1>
@@ -16,7 +18,7 @@ const EntryPoint = observer((): JSX.Element => {
         потребуется - сложение еще никогда не было таким простым!
       </p>
       {/* Если юзер залогинен, то кнопка будет вести на страницу сложения, если нет - на страницу входа */}
-      {store.userData.isLogged ? (
+      {props.loggedIn ? (
         <Link to="/add">
           <Button size="lg" variant="outline-secondary">
             К операции сложения

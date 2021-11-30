@@ -1,6 +1,7 @@
 // Основная страница для проведения вычисления
 
 import React, { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { observer } from "mobx-react";
 import {
   Container,
@@ -26,11 +27,26 @@ const OperationPage = observer((): JSX.Element => {
   // Состояние для передачи в дочерний компонент CalcCard,
   // если состояние истинно - удаляем введенные пользователем числа и очищаем список в состоянии
   const [clear, setClear] = useState(false);
+  const [title, setTitle] = useState("");
 
-  // Если состояние index равно 2 (3-й слайд карусели - "расчет") и компонент рендерится заново, 
+  // Если состояние index равно 2 (3-й слайд карусели - "расчет") и компонент рендерится заново,
   // то запускаем таймер на 5,6 секунд, чтобы Modal, который висит после перехода к расчету
   // успел показать анимацию загрузки и не давал пользователю доступа к странице
   useEffect(() => {
+    switch (index) {
+      case 0:
+        setTitle("Ввод");
+        break;
+      case 1:
+        setTitle("Проверка");
+        break;
+      case 2:
+        setTitle("Расчет");
+        break;
+      case 3:
+        setTitle("Результат");
+        break;
+    }
     if (index === 2) {
       setTimeout(() => {
         setIndex(3);
@@ -66,7 +82,7 @@ const OperationPage = observer((): JSX.Element => {
         </Button>
       );
       // Во всех остальных случаях проверяем, не на первом ли мы слайде, чтобы не увести карусель в пустой экран
-      // и при нажатии на кнопку назад сбрасываем во внешнем состоянии массив с числами и очищаем в CalcCard 
+      // и при нажатии на кнопку назад сбрасываем во внешнем состоянии массив с числами и очищаем в CalcCard
       // формы для ввода чисел
     } else {
       return (
@@ -90,6 +106,7 @@ const OperationPage = observer((): JSX.Element => {
 
   return (
     <Container>
+      <Helmet><title>{title}</title></Helmet>
       {index === 2 ? (
         <LoadingModal onShow={true} keyboardStatus={false} />
       ) : null}
