@@ -1,12 +1,13 @@
 import React from "react";
-import OpsItem from "./components/ops-item/OpsItem.component";
 
-import { opsItem } from "./common/OpsItemClass";
+import OpsPage from "./pages/ops/Ops.page";
 
 const App: React.FC = () => {
-  return <div>
-      <OpsItem body={opsItem.body} title={opsItem.title} buttonName={opsItem.buttonName} buttonAction={opsItem.buttonAction} />
-  </div>;
+  return (
+    <div>
+      <OpsPage />
+    </div>
+  );
 };
 
 export default App;

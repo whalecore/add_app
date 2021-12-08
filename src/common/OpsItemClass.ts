@@ -1,6 +1,6 @@
 import { OpsItemProps } from "../components/ops-item/OpsItem.component";
 
-export class OpsItemClass implements OpsItemProps {
+export class OpsItemClass {
   title: string;
   body: Element | string;
   buttonName: string;

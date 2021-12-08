@@ -6,17 +6,10 @@ import "./OpsItem.styles.css";
 
 export interface OpsItemProps {
   title: string;
-  body: Element | string;
-  buttonName: string;
-  buttonAction: Function;
+  body: string;
 }
 
-const OpsItem = ({
-  title,
-  body,
-  buttonAction,
-  buttonName,
-}: OpsItemProps): JSX.Element => {
+const OpsItem = ({ body, title }: OpsItemProps): JSX.Element => {
   return (
     <Card
       outline
@@ -24,17 +17,9 @@ const OpsItem = ({
       color="secondary"
       className="text-center mx-auto ops-card"
     >
-      {" "}
       <CardBody>
         <CardTitle tag="h5">{title}</CardTitle>
-        <CardText>{body}</CardText>
-        <Button
-          onClick={() => {
-            buttonAction();
-          }}
-        >
-          {buttonName}
-        </Button>
+        <CardText>{body}</CardText> 
       </CardBody>
     </Card>
   );
