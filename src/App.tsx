@@ -1,26 +1,12 @@
 import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import OpsItem from "./components/ops-item/OpsItem.component";
 
-import Header from "./components/header/header";
-import HomePage from "./pages/homepage/homepage";
-import AddPage from "./pages/add/add-page";
-import LoginPage from "./pages/login/login-page";
+import { opsItem } from "./common/OpsItemClass";
 
-import { userStore } from "./store/user";
-
-const App = (): JSX.Element => {
-  return (
-    <Router>
-      <div>
-        <Header currentUser={userStore.user.loggedIn ? true : false} />
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route exact path="/add" component={AddPage} />
-          <Route exact path="/login" component={LoginPage} />
-        </Switch>
-      </div>
-    </Router>
-  );
+const App: React.FC = () => {
+  return <div>
+      <OpsItem body={opsItem.body} title={opsItem.title} buttonName={opsItem.buttonName} buttonAction={opsItem.buttonAction} />
+  </div>;
 };
 
 export default App;
