@@ -4,7 +4,8 @@ import { Input } from "reactstrap";
 import CustomButton from "../../button/CustomButton.component";
 
 import { opsStore } from "../../../stores/opsStore";
-import { checkInput } from "../../../common/checkInput";
+import { checkInput } from "../../../common/utils/checkInput";
+import { observer } from "mobx-react";
 
 const OpsEnter = (): JSX.Element => {
   const [numbers, setNumbers] = useState<number[]>([]);
@@ -45,6 +46,10 @@ const OpsEnter = (): JSX.Element => {
     if (!checkInput(value)) {
       setTempNum(parseInt(value));
     }
+
+    if (Number.isNaN(parseInt(value))) {
+      setTempNum(0);
+    }
   };
 
   const handleTempNumAdd = (): void => {
@@ -59,9 +64,10 @@ const OpsEnter = (): JSX.Element => {
           <Input
             className="mt-1 mb-1"
             type="text"
-            value={number}
+            value={number ? number : ""}
             key={index}
             onChange={(e) => {
+              if (Number.isNaN(parseInt(e.target.value))) e.target.value = "0"
               handleArrayChange(e)(index);
             }}
           />
@@ -74,9 +80,13 @@ const OpsEnter = (): JSX.Element => {
           handleTempNumChange(e);
         }}
       />
-      <CustomButton title="Добавить" className="mt-2" handleClick={handleTempNumAdd} />
+      <CustomButton
+        title="Добавить"
+        className="mt-2"
+        handleClick={handleTempNumAdd}
+      />
     </React.Fragment>
   );
 };
 
-export default OpsEnter;
+export default observer(OpsEnter);

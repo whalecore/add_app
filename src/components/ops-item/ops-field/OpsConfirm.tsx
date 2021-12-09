@@ -1,80 +1,110 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+import { observer } from "mobx-react";
 
 import CustomButton from "../../button/CustomButton.component";
 
 import { opsStore } from "../../../stores/opsStore";
-import { InputGroup, Input, Form, Button } from "reactstrap";
-import { checkInput } from "../../../common/checkInput";
+import {
+  InputGroup,
+  Input,
+  Form,
+  Button,
+  ButtonDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
+import { checkInput } from "../../../common/utils/checkInput";
 
 const OpsConfirm = (): JSX.Element => {
   const [eqNum, setEqNum] = useState<number>();
+  const [isOpen, setIsOpen] = useState(false);
+  const [greater, setGreater] = useState(true);
 
   return (
-    <React.Fragment>
-      <br />
-      <span className="lead mt-2">
-        {opsStore.filteredNumsArray.length
+    <div>
+      <span className="lead mt-2 d-block">
+        {eqNum! > 0 && opsStore.filteredNumsArray.length
           ? opsStore.filteredNumsArray.join(", ")
           : opsStore.numsArray.join(", ")}
       </span>
-      <br />
 
       <CustomButton
         title="По возрастанию"
         className="mt-2 me-2"
-        handleClick={opsStore.sortAsc}
+        handleClick={() => {
+          opsStore.clearFilteredArray();
+          opsStore.sortAsc();
+        }}
       />
       <CustomButton
         title="По убыванию"
         className="mt-2 ms-2"
-        handleClick={opsStore.sortDesc}
+        handleClick={() => {
+          opsStore.clearFilteredArray();
+          opsStore.sortDesc();
+        }}
       />
       <Form>
-        <InputGroup className="mt-2 w-50 mx-auto">
-          <Button
+        <InputGroup className="mt-2 w-70 mx-auto">
+          <ButtonDropdown
+            toggle={function noRefCheck() {}}
+            isOpen={isOpen}
             onClick={() => {
-              if (eqNum) {
-                opsStore.copyArrayToFiltered();
-                opsStore.greaterThan(eqNum);
-              }
+              setIsOpen(!isOpen);
             }}
           >
-            Больше, чем:
-          </Button>
+            <DropdownToggle caret>
+              {greater ? "Больше, чем" : "Меньше, чем"}
+            </DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem header>Выберите вариант сравнения</DropdownItem>
+              <DropdownItem
+                onClick={() => {
+                  setGreater(true);
+                }}
+              >
+                Больше, чем
+              </DropdownItem>
+              <DropdownItem
+                onClick={() => {
+                  setGreater(false);
+                }}
+              >
+                Меньше, чем
+              </DropdownItem>
+            </DropdownMenu>
+          </ButtonDropdown>
           <Input
             type="text"
-            value={eqNum}
+            value={eqNum ? eqNum : ""}
+            name="eqNum"
             onChange={(e) => {
               if (!checkInput(e.target.value)) {
                 setEqNum(parseInt(e.target.value));
               }
-            }}
-          />
-        </InputGroup>
-        <InputGroup className="mt-2 w-50 mx-auto">
-          <Input
-            type="text"
-            value={eqNum}
-            onChange={(e) => {
-              if (!checkInput(e.target.value)) {
-                setEqNum(parseInt(e.target.value));
+              if (Number.isNaN(parseInt(e.target.value))) {
+                setEqNum(0);
               }
             }}
           />
           <Button
+            outline
             onClick={() => {
-              if (eqNum) {
-                opsStore.copyArrayToFiltered();
-                opsStore.lesserThan(eqNum);
+              if (greater) {
+                opsStore.greaterThan(eqNum!);
+                return;
               }
+              opsStore.lesserThan(eqNum!);
             }}
           >
-            Меньше, чем:
+            Сравнить
           </Button>
         </InputGroup>
       </Form>
-    </React.Fragment>
+    </div>
   );
 };
 
-export default OpsConfirm;
+export default observer(OpsConfirm);

@@ -8,11 +8,17 @@ const opsStores = () => {
       copyArrayToFiltered(): void {
         this.filteredNumsArray = this.numsArray;
       },
+      clearFilteredArray(): void {
+        this.filteredNumsArray = [];
+      },
+      sumNumbers(): number {
+        const sum = this.numsArray.reduce((acc, val) => {
+          return acc + val;
+        }, 0);
+        return sum;
+      },
       addNumber(num: number): void {
         this.numsArray.push(num);
-      },
-      removeNumber(num: number): void {
-        this.numsArray.splice(this.numsArray.indexOf(num));
       },
       cleaArray(): void {
         this.numsArray = [];
@@ -27,22 +33,25 @@ const opsStores = () => {
           return b - a;
         });
       },
-      lesserThan(num: number) {
-        this.filteredNumsArray = this.numsArray.filter((a) => a > num);
+      greaterThan(num: number): number[] {
+        this.copyArrayToFiltered();
+        return this.filteredNumsArray = this.numsArray.filter((a) => a > num);
       },
-      greaterThan(num: number) {
-        this.filteredNumsArray = this.numsArray.filter((a) => a < num);
+      lesserThan(num: number): number[] {
+        this.copyArrayToFiltered();
+        return this.filteredNumsArray = this.numsArray.filter((a) => a < num);
       },
     },
     {
       numsArray: observable,
+      filteredNumsArray: observable,
       addNumber: action.bound,
-      removeNumber: action.bound,
       cleaArray: action.bound,
       sortAsc: action.bound,
       sortDesc: action.bound,
       lesserThan: action.bound,
       greaterThan: action.bound,
+      sumNumbers: action.bound
     }
   );
 };
