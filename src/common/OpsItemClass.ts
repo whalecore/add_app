@@ -1,4 +1,3 @@
-import { OpsItemProps } from "../components/ops-item/OpsItem.component";
 
 export class OpsItemClass {
   title: string;

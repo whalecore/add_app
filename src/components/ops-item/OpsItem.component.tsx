@@ -1,15 +1,18 @@
 import React from "react";
 
-import { Button, Card, CardBody, CardText, CardTitle } from "reactstrap";
+import { Card, CardBody, CardText, CardTitle } from "reactstrap";
+import OpsEnter from "./ops-field/OpsEnter";
 
 import "./OpsItem.styles.css";
 
-export interface OpsItemProps {
+interface OpsItemProps {
   title: string;
   body: string;
+  id: number;
+  children?: React.ReactNode;
 }
 
-const OpsItem = ({ body, title }: OpsItemProps): JSX.Element => {
+const OpsItem = ({ body, title, id, children }: OpsItemProps): JSX.Element => {
   return (
     <Card
       outline
@@ -19,7 +22,9 @@ const OpsItem = ({ body, title }: OpsItemProps): JSX.Element => {
     >
       <CardBody>
         <CardTitle tag="h5">{title}</CardTitle>
-        <CardText>{body}</CardText> 
+        <CardText>{body}
+        {children}
+        </CardText>
       </CardBody>
     </Card>
   );

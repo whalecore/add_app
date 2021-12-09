@@ -4,6 +4,10 @@ const opsStores = () => {
   return makeObservable(
     {
       numsArray: [] as number[],
+      filteredNumsArray: [] as number[],
+      copyArrayToFiltered(): void {
+        this.filteredNumsArray = this.numsArray;
+      },
       addNumber(num: number): void {
         this.numsArray.push(num);
       },
@@ -23,6 +27,12 @@ const opsStores = () => {
           return b - a;
         });
       },
+      lesserThan(num: number) {
+        this.filteredNumsArray = this.numsArray.filter((a) => a > num);
+      },
+      greaterThan(num: number) {
+        this.filteredNumsArray = this.numsArray.filter((a) => a < num);
+      },
     },
     {
       numsArray: observable,
@@ -31,6 +41,8 @@ const opsStores = () => {
       cleaArray: action.bound,
       sortAsc: action.bound,
       sortDesc: action.bound,
+      lesserThan: action.bound,
+      greaterThan: action.bound,
     }
   );
 };
