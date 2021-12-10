@@ -48,6 +48,7 @@ const opsStores = () => {
     {
       numsArray: observable,
       filteredNumsArray: observable,
+      clearFilteredArray: action.bound,
       setNumbers: action.bound,
       addNumber: action.bound,
       cleaArray: action.bound,

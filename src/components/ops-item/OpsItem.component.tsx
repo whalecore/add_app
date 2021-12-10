@@ -21,7 +21,7 @@ const OpsItem = ({ body, title, children }: OpsItemProps): JSX.Element => {
     >
       <CardBody>
         <CardTitle tag="h5">{title}</CardTitle>
-        <CardText>
+        <CardText tag={'span'}>
           {body}
           <div>
           {children}

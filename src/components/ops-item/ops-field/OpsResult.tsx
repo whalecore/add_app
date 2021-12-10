@@ -9,7 +9,6 @@ const OpsResult: React.FC = () => {
   const sum = opsStore.sumNumbers();
 
   return (
-    <div>
     <Table striped bordered hover>
       <thead>
         <tr>
@@ -36,7 +35,6 @@ const OpsResult: React.FC = () => {
         </tr>
       </tbody>
     </Table>
-    </div>
   );
 };
 

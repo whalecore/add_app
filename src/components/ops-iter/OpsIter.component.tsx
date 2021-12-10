@@ -24,7 +24,6 @@ const OpsIter = () => {
     }
   });
 
-  console.log(itemIndex);
   const decItem = (): void => {
     if (itemIndex === 0) return;
     setItemIndex(itemIndex - 1);

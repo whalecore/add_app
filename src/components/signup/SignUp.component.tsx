@@ -18,7 +18,6 @@ const SignUp: React.FC = () => {
 
   const handleChange = (e: SyntheticEvent): void => {
     const { name, value } = e.target as HTMLTextAreaElement;
-    console.log(emailError);
 
     if (name === "email" && !checkEmail(value)) {
       setEmailError("Неправильный адрес email");
