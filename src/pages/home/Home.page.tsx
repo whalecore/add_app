@@ -1,4 +1,6 @@
 import React from "react";
+import { Helmet } from "react-helmet";
+
 import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
 
@@ -22,7 +24,14 @@ const HomePage = (): JSX.Element => {
       </div>
     );
   };
-  return <div className="mt-2 text-center">{renderContent()}</div>;
+  return (
+    <div className="mt-2 text-center">
+      <Helmet>
+        <title>Сложение</title>
+      </Helmet>
+      {renderContent()}
+    </div>
+  );
 };
 
 export default HomePage;

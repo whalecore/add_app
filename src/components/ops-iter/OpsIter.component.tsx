@@ -12,6 +12,7 @@ import OpsResult from "../ops-item/ops-field/OpsResult";
 import { opsItems } from "../../common/opsItems";
 
 import { opsStore } from "../../stores/opsStore";
+import { Helmet } from "react-helmet";
 
 const OpsIter = () => {
   const [itemIndex, setItemIndex] = useState<number>(0);
@@ -37,13 +38,38 @@ const OpsIter = () => {
   const renderContent = () => {
     switch (itemIndex) {
       case 0:
-        return <OpsEnter />;
+        return (
+          <React.Fragment>
+            <Helmet>
+              <title>Ввод данных</title>
+            </Helmet>
+            <OpsEnter />
+          </React.Fragment>
+        );
       case 1:
-        return <OpsConfirm />;
+        return (
+          <React.Fragment>
+            <Helmet>
+              <title>Подтвердите данные</title>
+            </Helmet>
+            <OpsConfirm />
+          </React.Fragment>
+        );
       case 2:
-        return;
+        return (
+          <Helmet>
+            <title>Расчет</title>
+          </Helmet>
+        );
       case 3:
-        return <OpsResult />;
+        return (
+          <React.Fragment>
+            <Helmet>
+              <title>Результат</title>
+            </Helmet>
+            <OpsResult />
+          </React.Fragment>
+        );
     }
   };
 
@@ -92,7 +118,9 @@ const OpsIter = () => {
       <div className="mx-auto mt-3 d-flex justify-content-center">
         {backButton()}
         <CustomButton
-          className={`ms-2 ${opsStore.numsArray.length < 2 || itemIndex === 3 ? "disabled" : ""}`}
+          className={`ms-2 ${
+            opsStore.numsArray.length < 2 || itemIndex === 3 ? "disabled" : ""
+          }`}
           title="Далее"
           handleClick={incItem}
         />

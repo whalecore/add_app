@@ -6,6 +6,7 @@ import { Form, FormGroup, Input, Label } from "reactstrap";
 import { UserInterface, userStore } from "../../stores/userStore";
 import { checkEmail } from "../../common/utils/checkEmail";
 import CustomButton from "../button/CustomButton.component";
+import { Helmet } from "react-helmet";
 
 const SignUp: React.FC = () => {
   const [userInput, setUserInput] = useState<UserInterface>({
@@ -45,6 +46,7 @@ const SignUp: React.FC = () => {
 
   return (
     <div className="d-flex justify-content-center">
+      <Helmet><title>Вход</title></Helmet>
       <Form
         className="w-50"
         onSubmit={(e) => {
