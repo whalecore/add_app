@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/components/ops-item/OpsItem.styles.css"],"names":[],"mappings":"AAAA,UACI,SACJ","file":"main.7e31b591.chunk.css","sourcesContent":[".ops-card {\r\n    width: 80%;\r\n}"]}
