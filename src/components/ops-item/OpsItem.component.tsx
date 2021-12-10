@@ -1,4 +1,5 @@
 import React from "react";
+import { observer } from "mobx-react";
 
 import { Card, CardBody, CardText, CardTitle } from "reactstrap";
 
@@ -7,11 +8,10 @@ import "./OpsItem.styles.css";
 interface OpsItemProps {
   title: string;
   body: string;
-  id: number;
   children?: React.ReactNode;
 }
 
-const OpsItem = ({ body, title, id, children }: OpsItemProps): JSX.Element => {
+const OpsItem = ({ body, title, children }: OpsItemProps): JSX.Element => {
   return (
     <Card
       outline
@@ -21,12 +21,15 @@ const OpsItem = ({ body, title, id, children }: OpsItemProps): JSX.Element => {
     >
       <CardBody>
         <CardTitle tag="h5">{title}</CardTitle>
-        <CardText>{body}
-        {children}
+        <CardText>
+          {body}
+          <div>
+          {children}
+          </div>
         </CardText>
       </CardBody>
     </Card>
   );
 };
 
-export default OpsItem;
+export default observer(OpsItem);

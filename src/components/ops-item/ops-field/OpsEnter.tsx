@@ -12,7 +12,7 @@ const OpsEnter = (): JSX.Element => {
   const [tempNum, setTempNum] = useState<number>();
 
   useEffect(() => {
-    opsStore.numsArray = numbers;
+    opsStore.setNumbers(numbers);
 
     const listener = (event: KeyboardEvent) => {
       if (event.code === "Enter") {

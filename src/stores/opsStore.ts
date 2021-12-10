@@ -5,6 +5,9 @@ const opsStores = () => {
     {
       numsArray: [] as number[],
       filteredNumsArray: [] as number[],
+      setNumbers(nums: number[]): void {
+        this.numsArray = nums;
+      },
       copyArrayToFiltered(): void {
         this.filteredNumsArray = this.numsArray;
       },
@@ -45,6 +48,7 @@ const opsStores = () => {
     {
       numsArray: observable,
       filteredNumsArray: observable,
+      setNumbers: action.bound,
       addNumber: action.bound,
       cleaArray: action.bound,
       sortAsc: action.bound,

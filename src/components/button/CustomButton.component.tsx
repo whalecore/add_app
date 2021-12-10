@@ -1,4 +1,5 @@
 import { Button } from "reactstrap";
+import { observer } from "mobx-react";
 
 interface CustomButtonProps {
   title: string;
@@ -10,8 +11,8 @@ const CustomButton = ({ title, className, handleClick }: CustomButtonProps) => {
   return (
     <Button className={className} onClick={handleClick}>
       {title}
-    </Button> 
+    </Button>
   );
 };
 
-export default CustomButton;
+export default observer(CustomButton);

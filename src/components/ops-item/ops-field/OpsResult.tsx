@@ -1,4 +1,6 @@
 import React from "react";
+import { observer } from "mobx-react";
+
 import { Table } from "react-bootstrap";
 
 import { opsStore } from "../../../stores/opsStore";
@@ -7,6 +9,7 @@ const OpsResult: React.FC = () => {
   const sum = opsStore.sumNumbers();
 
   return (
+    <div>
     <Table striped bordered hover>
       <thead>
         <tr>
@@ -33,7 +36,8 @@ const OpsResult: React.FC = () => {
         </tr>
       </tbody>
     </Table>
+    </div>
   );
 };
 
-export default OpsResult;
+export default observer(OpsResult);

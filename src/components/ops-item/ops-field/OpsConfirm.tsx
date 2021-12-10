@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { observer } from "mobx-react";
 
@@ -8,7 +8,6 @@ import { opsStore } from "../../../stores/opsStore";
 import {
   InputGroup,
   Input,
-  Form,
   Button,
   ButtonDropdown,
   DropdownToggle,
@@ -46,7 +45,6 @@ const OpsConfirm = (): JSX.Element => {
           opsStore.sortDesc();
         }}
       />
-      <Form>
         <InputGroup className="mt-2 w-70 mx-auto">
           <ButtonDropdown
             toggle={function noRefCheck() {}}
@@ -102,7 +100,6 @@ const OpsConfirm = (): JSX.Element => {
             Сравнить
           </Button>
         </InputGroup>
-      </Form>
     </div>
   );
 };
